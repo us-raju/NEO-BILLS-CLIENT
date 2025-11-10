@@ -50,7 +50,7 @@ const Navigation = () => {
 
   return (
     <>
-      <div className="navbar shadow-sm">
+      <div className="navbar shadow-sm bg-base-300">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -72,12 +72,12 @@ const Navigation = () => {
             </div>
             <ul
               tabIndex="-1"
-              className="menu menu-sm dropdown-content text-center rounded-box z-1 mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content  rounded-box z-1 mt-3 w-52 p-2 shadow space-y-2 bg-base-300 "
             >
               {links}
             </ul>
           </div>
-          <Link className="text-primary font-bold font-[Inter] text-2xl" to="/">
+          <Link className="text-primary font-bold font-[Inter] text-[18px] md:text-2xl" to="/">
             NEO BILLS
           </Link>
         </div>
