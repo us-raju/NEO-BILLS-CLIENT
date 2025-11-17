@@ -1,7 +1,19 @@
 import React from "react";
+import { CgProfile } from "react-icons/cg";
 import { Link, NavLink } from "react-router";
+import useAuth from "../hook/useAuth";
+import Loading from "../Loading/Loading";
+import Swal from "sweetalert2";
 
 const Navigation = () => {
+  const { user, loading, LogOut } = useAuth();
+  if (loading) {
+    return <Loading></Loading>;
+  }
+
+  console.log(user)
+  // Light and Dark mode
+
   // const toggleTheme = () => {
   //   const html = document.documentElement;
   //   const currentTheme = html.getAttribute("data-theme");
@@ -10,6 +22,26 @@ const Navigation = () => {
   //     currentTheme === "mytheme-light" ? "mytheme-dark" : "mytheme-light"
   //   );
   // };
+  const handleLogOut = () => {
+    LogOut()
+      .then(() => {
+        Swal.fire({
+          position: "top",
+          icon: "success",
+          title: "LogOut Successfull",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+      })
+      .catch((err) => {
+        const errMessage = err.message;
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: errMessage,
+        });
+      });
+  };
 
   const links = (
     <>
@@ -29,22 +61,66 @@ const Navigation = () => {
           Bills
         </NavLink>
       </li>
-      <li>
+      {user ? (
+        <>
+          <li>
+            <NavLink
+              className="border border-primary hover:bg-primary hover:text-white  mx-3 px-5 py-1.5 text-[18px] text-primary font-[Inter] font-medium duration-100 rounded-2xl cursor-pointer "
+              to="/paybills"
+            >
+              My Pay Bills
+            </NavLink>
+          </li>
+        </>
+      ) : (
+        <>
+          <li>
+            <NavLink
+              className="border border-primary hover:bg-primary hover:text-white  mx-3 px-5 py-1.5 text-[18px] text-primary font-[Inter] font-medium duration-100 rounded-2xl cursor-pointer "
+              to="/login"
+            >
+              Login
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className="border border-primary hover:bg-primary hover:text-white  mx-3 px-5 py-1.5 text-[18px] text-primary font-[Inter] font-medium duration-100 rounded-2xl cursor-pointer "
+              to="/register"
+            >
+              Register
+            </NavLink>
+          </li>
+        </>
+      )}
+    </>
+  );
+
+  const avtarLogout = (
+    <>
+      {user && user.photoURL ? (
         <NavLink
-          className="border border-primary hover:bg-primary hover:text-white  mx-3 px-5 py-1.5 text-[18px] text-primary font-[Inter] font-medium duration-100 rounded-2xl cursor-pointer "
-          to="/login"
+          className="w-[45px] h-[45px] border border-primary rounded-full cursor-pointer "
+          to="/"
         >
-          Login
+          <img
+            className="w-full h-full rounded-full"
+            src={user.photoURL}
+            alt=""
+          />
         </NavLink>
-      </li>
-      <li>
-        <NavLink
-          className="border border-primary hover:bg-primary hover:text-white  mx-3 px-5 py-1.5 text-[18px] text-primary font-[Inter] font-medium duration-100 rounded-2xl cursor-pointer "
-          to="/register"
-        >
-          Register
-        </NavLink>
-      </li>
+      ) : (
+        <span className="w-[45px] h-[45px]  cursor-pointer ">
+          <CgProfile className="w-full h-full" />
+        </span>
+      )}
+
+      <button
+        onClick={handleLogOut}
+        type="button"
+        className="border border-primary bg-primary text-white  mx-3 px-5 py-1.5 text-[18px]  font-[Inter] font-medium  rounded-2xl cursor-pointer"
+      >
+        LogOut
+      </button>
     </>
   );
 
@@ -77,13 +153,19 @@ const Navigation = () => {
               {links}
             </ul>
           </div>
-          <Link className="text-primary font-bold font-[Inter] text-[18px] md:text-2xl" to="/">
+          <Link
+            className="text-primary font-bold font-[Inter] text-[18px] md:text-2xl"
+            to="/"
+          >
             NEO BILLS
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu-horizontal px-3">{links}</ul>
         </div>
+        {user && (
+          <div className="navbar-center hidden lg:flex">{avtarLogout}</div>
+        )}
       </div>
     </>
   );
