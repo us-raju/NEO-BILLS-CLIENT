@@ -11,7 +11,6 @@ const Navigation = () => {
     return <Loading></Loading>;
   }
 
-  console.log(user)
   // Light and Dark mode
 
   // const toggleTheme = () => {

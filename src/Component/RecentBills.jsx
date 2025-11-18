@@ -43,8 +43,8 @@ const RecentBills = () => {
                   <h4 className="text-base-100 text-[16px] lg: font-medium font-[Inter]">
                     {data.category}
                   </h4>
-                  <p className="text-[16px] my-2">{data.location}</p>
-                  <p className="text-[16px]">{data.date}</p>
+                  <p className="text-[16px] text-base-content my-2">{data.location}</p>
+                  <p className="text-[16px] text-base-content">{data.date}</p>
                 </div>
               </div>
               <div>

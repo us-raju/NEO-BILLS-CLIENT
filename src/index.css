@@ -14,6 +14,7 @@
   --color-base-content: #475569;
   --color-base-300: #f8fafc;
   --color-accent: #10b981;
+  --color-accent-content: #3b82f620;
   --color-success: #22c55e;
   --color-error: #ef4444;
 }
@@ -28,6 +29,7 @@
   --color-base-content: #94a3b8;
   --color-base-300: #1e293b;
   --color-accent: #10b981;
+  --color-accent-content: #38bdf820;
   --color-success: #22c55e;
   --color-error: #ef4444;
 }
