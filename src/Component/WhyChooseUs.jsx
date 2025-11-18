@@ -1,13 +1,8 @@
 import React from "react";
-import { FaRegUser } from "react-icons/fa";
-import { MdPayment } from "react-icons/md";
-import { RiBillLine } from "react-icons/ri";
-import { Link } from "react-router";
-import useAuth from "../hook/useAuth";
-import Swal from "sweetalert2";
+import { FaLock } from "react-icons/fa";
+import { IoAccessibilitySharp, IoSettingsSharp } from "react-icons/io5";
 
-const HowItWork = () => {
-  const { user } = useAuth();
+const WhyChooseUs = () => {
   return (
     <>
       <div>
@@ -15,20 +10,8 @@ const HowItWork = () => {
           How It Works
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 ">
-          <Link
-            to={user ? "#" : "/register"}
-            onClick={(e) => {
-              if (user) {
-                e.preventDefault();
-
-                Swal.fire({
-                  title: "You already logged in",
-                  icon: "info",
-                  draggable: false,
-                });
-              }
-            }}
-            className="hover:border hover:border-primary rounded-2xl duration-200"
+          <div
+            className="rounded-2xl "
           >
             <div
               className={`bg-base-300 p-10 shadow-lg rounded-2xl flex flex-col justify-between`}
@@ -36,25 +19,24 @@ const HowItWork = () => {
               <div className="mb-5 flex items-center">
                 <div className="bg-accent-content w-16 h-16 rounded-full flex justify-center items-center">
                   <span className="text-primary ">
-                    <FaRegUser size={35} />
+                    <FaLock size={35} />
                   </span>
                 </div>
                 <div className="ml-5">
                   <h3 className="text-base-100 text-[18px] lg:text-[20px] font-semibold font-[Inter]">
-                    Create an Account
+                   Secure Transactions
                   </h3>
                 </div>
               </div>
               <div>
                 <p className="text-base-content">
-                  Create your account and get instant access to all services.
+                  Your payments are protected with advanced encryption.
                 </p>
               </div>
             </div>
-          </Link>
-          <Link
-            to="/bills"
-            className="hover:border hover:border-primary rounded-2xl duration-200"
+          </div>
+          <div
+            className="rounded-2xl "
           >
             <div
               className={`bg-base-300 p-10 shadow-lg rounded-2xl flex flex-col justify-between`}
@@ -62,25 +44,24 @@ const HowItWork = () => {
               <div className="mb-5 flex items-center">
                 <div className="bg-accent-content w-16 h-16 rounded-full flex justify-center items-center">
                   <span className="text-primary">
-                    <RiBillLine size={35} />
+                    <IoAccessibilitySharp size={35} />
                   </span>
                 </div>
                 <div className="ml-5">
                   <h3 className="text-base-100 text-[18px] lg:text-[20px] font-semibold font-[Inter]">
-                    View & Filter Bills
+                    Easy Access Anywhere
                   </h3>
                 </div>
               </div>
               <div>
                 <p className="text-base-content">
-                  Easily view, search, and filter your bills in one place.
+                  Access your bill information anytime, from any device.
                 </p>
               </div>
             </div>
-          </Link>
-          <Link
-            to="bills-details"
-            className="hover:border hover:border-primary rounded-2xl duration-200"
+          </div>
+          <div
+            className="rounded-2xl"
           >
             <div
               className={`bg-base-300 p-10 shadow-lg rounded-2xl flex flex-col justify-between`}
@@ -88,26 +69,26 @@ const HowItWork = () => {
               <div className="mb-5 flex items-center">
                 <div className="bg-accent-content w-16 h-16 rounded-full flex justify-center items-center">
                   <span className="text-primary">
-                    <MdPayment size={35} />
+                    <IoSettingsSharp size={35} />
                   </span>
                 </div>
                 <div className="ml-5">
                   <h3 className="text-base-100 text-[18px] lg:text-[20px] font-semibold font-[Inter]">
-                    Pay Your Current Month Bill
+                    Real-time Data Updates
                   </h3>
                 </div>
               </div>
               <div>
                 <p className="text-base-content">
-                  Make secure online payments anytime, anywhere.
+                  Get instant updates on bill status and payment confirmation.
                 </p>
               </div>
             </div>
-          </Link>
+          </div>
         </div>
       </div>
     </>
   );
 };
 
-export default HowItWork;
+export default WhyChooseUs;

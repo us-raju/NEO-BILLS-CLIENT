@@ -98,11 +98,18 @@ const Navigation = () => {
     <>
       {user && user.photoURL ? (
         <NavLink
-          className="w-[45px] h-[45px] border border-primary rounded-full cursor-pointer "
+          className="w-[45px] h-[45px]  rounded-full cursor-pointer "
           to="/"
         >
           <img
-            className="w-full h-full rounded-full"
+            style={{
+              width: "45px",
+              height: "45px",
+              maxWidth: "45px",
+              maxHeight: "45px",
+              objectFit: "cover",
+            }}
+            className=" rounded-full"
             src={user.photoURL}
             alt=""
           />
@@ -150,6 +157,9 @@ const Navigation = () => {
               className="menu menu-sm dropdown-content  rounded-box z-1 mt-3 w-52 p-2 shadow space-y-2 bg-base-300 "
             >
               {links}
+              {user && (
+                <li className="flex items-center gap-3">{avtarLogout}</li>
+              )}
             </ul>
           </div>
           <Link
