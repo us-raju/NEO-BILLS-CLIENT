@@ -18,7 +18,7 @@ const RecentBills = () => {
   return (
     <>
       <div>
-        <h2 className="text-base-100 text-2xl font-[Inter] font-bold mb-5">
+        <h2 className="text-base-200 text-2xl font-[Inter] font-bold mb-5">
           Recent Bills
         </h2>
 
@@ -26,7 +26,7 @@ const RecentBills = () => {
           {recentData.map((data) => (
             <div
               key={data._id}
-              className={`bg-base-300 p-10 shadow-lg rounded-2xl flex flex-col justify-between`}
+              className={`bg-base-300 p-10 shadow-lg rounded-2xl flex flex-col justify-between border border-gray-300`}
             >
               <div className="mb-5 flex items-center">
                 <div>
@@ -37,13 +37,15 @@ const RecentBills = () => {
                   />
                 </div>
                 <div className="ml-5">
-                  <h3 className="text-base-100 text-[18px] lg:text-[20px] font-semibold font-[Inter]">
+                  <h3 className="text-base-200 text-[18px] lg:text-[20px] font-semibold font-[Inter]">
                     {data.title}
                   </h3>
-                  <h4 className="text-base-100 text-[16px] lg: font-medium font-[Inter]">
+                  <h4 className="text-base-200 text-[16px] lg: font-medium font-[Inter]">
                     {data.category}
                   </h4>
-                  <p className="text-[16px] text-base-content my-2">{data.location}</p>
+                  <p className="text-[16px] text-base-content my-2">
+                    {data.location}
+                  </p>
                   <p className="text-[16px] text-base-content">{data.date}</p>
                 </div>
               </div>

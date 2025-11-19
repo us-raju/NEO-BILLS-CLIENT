@@ -107,11 +107,11 @@ const Register = () => {
           <div className="md:w-[50%] ">
             <div className="rounded-2xl p-5 shadow-2xl max-w-96 mx-auto">
               <form onSubmit={handleFormSubmit}>
-                <h1 className="text-2xl font-bold font-[Inter] text-base-100">
+                <h1 className="text-2xl font-bold font-[Inter] text-base-200">
                   Register
                 </h1>
                 <div className="my-2">
-                  <label className="text-base-100 font-medium font-[Raleway] text-[18px]">
+                  <label className="text-base-200 font-medium font-[Raleway] text-[18px]">
                     Name
                   </label>
                   <br />
@@ -124,7 +124,7 @@ const Register = () => {
                   />
                 </div>
                 <div className="my-2">
-                  <label className="text-base-100 font-medium font-[Raleway] text-[18px]">
+                  <label className="text-base-200 font-medium font-[Raleway] text-[18px]">
                     Email
                   </label>
                   <br />
@@ -137,7 +137,7 @@ const Register = () => {
                   />
                 </div>
                 <div className="my-2">
-                  <label className="text-base-100 font-medium font-[Raleway] text-[18px]">
+                  <label className="text-base-200 font-medium font-[Raleway] text-[18px]">
                     Photo URL
                   </label>
                   <br />
@@ -150,7 +150,7 @@ const Register = () => {
                   />
                 </div>
                 <div className="my-2 relative">
-                  <label className="text-base-100 font-medium font-[Raleway] text-[18px]">
+                  <label className="text-base-200 font-medium font-[Raleway] text-[18px]">
                     Password
                   </label>
                   <br />

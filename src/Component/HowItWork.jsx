@@ -11,7 +11,7 @@ const HowItWork = () => {
   return (
     <>
       <div>
-        <h2 className="text-base-100 text-2xl font-[Inter] font-bold mb-5">
+        <h2 className="text-base-200 text-2xl font-[Inter] font-bold mb-5">
           How It Works
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 ">
@@ -28,7 +28,7 @@ const HowItWork = () => {
                 });
               }
             }}
-            className="hover:border hover:border-primary rounded-2xl duration-200"
+            className="hover:border hover:border-primary rounded-2xl duration-200 border border-gray-300"
           >
             <div
               className={`bg-base-300 p-10 shadow-lg rounded-2xl flex flex-col justify-between`}
@@ -40,7 +40,7 @@ const HowItWork = () => {
                   </span>
                 </div>
                 <div className="ml-5">
-                  <h3 className="text-base-100 text-[18px] lg:text-[20px] font-semibold font-[Inter]">
+                  <h3 className="text-base-200 text-[18px] lg:text-[20px] font-semibold font-[Inter]">
                     Create an Account
                   </h3>
                 </div>
@@ -54,7 +54,7 @@ const HowItWork = () => {
           </Link>
           <Link
             to="/bills"
-            className="hover:border hover:border-primary rounded-2xl duration-200"
+            className="hover:border hover:border-primary rounded-2xl duration-200 border border-gray-300"
           >
             <div
               className={`bg-base-300 p-10 shadow-lg rounded-2xl flex flex-col justify-between`}
@@ -66,7 +66,7 @@ const HowItWork = () => {
                   </span>
                 </div>
                 <div className="ml-5">
-                  <h3 className="text-base-100 text-[18px] lg:text-[20px] font-semibold font-[Inter]">
+                  <h3 className="text-base-200 text-[18px] lg:text-[20px] font-semibold font-[Inter]">
                     View & Filter Bills
                   </h3>
                 </div>
@@ -80,7 +80,7 @@ const HowItWork = () => {
           </Link>
           <Link
             to="bills-details"
-            className="hover:border hover:border-primary rounded-2xl duration-200"
+            className="hover:border hover:border-primary rounded-2xl duration-200 border border-gray-300"
           >
             <div
               className={`bg-base-300 p-10 shadow-lg rounded-2xl flex flex-col justify-between`}
@@ -92,7 +92,7 @@ const HowItWork = () => {
                   </span>
                 </div>
                 <div className="ml-5">
-                  <h3 className="text-base-100 text-[18px] lg:text-[20px] font-semibold font-[Inter]">
+                  <h3 className="text-base-200 text-[18px] lg:text-[20px] font-semibold font-[Inter]">
                     Pay Your Current Month Bill
                   </h3>
                 </div>
