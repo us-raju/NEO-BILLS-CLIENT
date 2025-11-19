@@ -4,7 +4,9 @@ import Loading from "../Loading/Loading";
 import { Link } from "react-router";
 
 const Bills = () => {
-  const [bills, setBills] = useState("");
+  const [bills, setBills] = useState([]);
+  const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("");
   const axiosInstance = useAxios();
   useEffect(() => {
     axiosInstance.get("/bills").then((data) => {
@@ -15,6 +17,23 @@ const Bills = () => {
   if (!bills) {
     return <Loading></Loading>;
   }
+
+  // search functionality here
+  const filtfilteredBills = bills.filter((bill) => {
+    // for search
+    const matchesSearch =
+      bill.title.toLowerCase().includes(search.toLowerCase()) ||
+      bill.category.toLowerCase().includes(search.toLowerCase()) ||
+      bill.amount
+        .toString()
+        .replace(/[^0-9]/g, "")
+        .includes(search);
+
+    // for select categroy
+    const matchesCategory = category === "" || bill.category === category;
+    return matchesSearch && matchesCategory;
+  });
+
   return (
     <>
       <section className="w-11/12 md:w-10/12 mx-auto">
@@ -44,6 +63,7 @@ const Bills = () => {
                 <input
                   className="text-[18px] text-base-content"
                   type="search"
+                  onChange={(e) => setSearch(e.target.value)}
                   required
                   placeholder="Search"
                 />
@@ -53,17 +73,18 @@ const Bills = () => {
               <fieldset className="fieldset">
                 <select
                   defaultValue="Pick a browser"
+                  onChange={(e) => setCategory(e.target.value)}
                   className="select border border-gray-300"
                 >
-                  <option disabled={false}>Category</option>
-                  <option>Electricity</option>
-                  <option>Water</option>
-                  <option>Gas</option>
-                  <option>Internet</option>
-                  <option>Mobile</option>
-                  <option>Cable TV</option>
-                  <option>Waste Management</option>
-                  <option>Environmental</option>
+                  <option disabled={false} value="">Category</option>
+                  <option value="Electricity">Electricity</option>
+                  <option value="Water">Water</option>
+                  <option value="Gas">Gas</option>
+                  <option value="Internet">Internet</option>
+                  <option value="Mobile">Mobile</option>
+                  <option value="Cable TV">Cable TV</option>
+                  <option value="Waste Management">Waste Management</option>
+                  <option value="Environmental">Environmental</option>
                 </select>
               </fieldset>
             </div>
@@ -72,7 +93,7 @@ const Bills = () => {
           {/* bills card here  */}
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-5">
-            {bills.map((data) => (
+            {filtfilteredBills.map((data) => (
               <div
                 key={data._id}
                 className={`bg-base-300 p-10 shadow-lg rounded-2xl flex flex-col justify-between border border-gray-300`}
