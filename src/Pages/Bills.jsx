@@ -126,7 +126,7 @@ const Bills = () => {
                 </div>
                 <div>
                   <div>
-                    <Link className="w-full inline-block  py-2 rounded-2xl text-center text-[18px] font-semibold font-[Inter] text-primary bg-transparent border border-primary hover:bg-primary hover:text-white duration-200">
+                    <Link to={`/bills-details/${data._id}`} className="w-full inline-block  py-2 rounded-2xl text-center text-[18px] font-semibold font-[Inter] text-primary bg-transparent border border-primary hover:bg-primary hover:text-white duration-200">
                       See Details
                     </Link>
                   </div>
