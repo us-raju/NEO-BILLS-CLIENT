@@ -61,6 +61,7 @@ const BillsDetails = () => {
     const username = form.name.value;
     const address = form.address.value;
     const phone = form.phone.value;
+    const date = form.date.value;
     if (!validatePhone(phone)) {
       setPhone(false);
       return;
@@ -73,6 +74,7 @@ const BillsDetails = () => {
       username: username,
       address: address,
       phone: phone,
+      date: date
     };
 
     axiosInstance
@@ -98,7 +100,6 @@ const BillsDetails = () => {
     if (payBillRef.current) {
       payBillRef.current.close();
     }
-    console.log(newPayBill);
   };
 
   return (
