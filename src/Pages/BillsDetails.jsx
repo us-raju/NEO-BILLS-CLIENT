@@ -3,11 +3,14 @@ import { Link, useParams } from "react-router";
 import useAxios from "../hook/useAxios";
 import Loading from "../Loading/Loading";
 import useAuth from "../hook/useAuth";
+import Swal from "sweetalert2";
 
 const BillsDetails = () => {
   const { id } = useParams();
   const [bill, setBill] = useState(null);
   const [payBill, setPayBill] = useState(false);
+  const [phone, setPhone] = useState(true);
+  const [todayDate, setTodayDate] = useState("");
   const payBillRef = useRef(null);
   const { user } = useAuth();
   const axiosInstance = useAxios();
@@ -26,12 +29,78 @@ const BillsDetails = () => {
 
     setPayBill(compareMonth);
   }, [bill]);
+
+  // date functionlity
+  useEffect(() => {
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, "0");
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const year = String(today.getFullYear());
+    const formatedDate = `${year}-${month}-${day}`;
+    setTodayDate(formatedDate);
+  }, []);
+
   if (!bill || !payBill) {
     return <Loading></Loading>;
   }
   const paybillModal = () => {
     payBillRef.current.showModal();
   };
+  // validate Phone number
+  const validatePhone = (phone) => {
+    const regex = /^[0-9]{11}$/;
+    return regex.test(phone);
+  };
+  //   create pay bills
+  const handlePayBillsForm = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = user.email;
+    const bill_id = bill._id;
+    const amount = bill.amount;
+    const username = form.name.value;
+    const address = form.address.value;
+    const phone = form.phone.value;
+    if (!validatePhone(phone)) {
+      setPhone(false);
+      return;
+    }
+
+    const newPayBill = {
+      email: email,
+      bill_id: bill_id,
+      amount: amount,
+      username: username,
+      address: address,
+      phone: phone,
+    };
+
+    axiosInstance
+      .post("/pay-bills", newPayBill)
+      .then((res) => {
+        Swal.fire({
+          icon: "success",
+          text: "Your bill pay successfully!",
+        });
+      })
+      .catch((err) => {
+        const error = err.message;
+         Swal.fire({
+          icon: "error",
+          text: error,
+        });
+      });
+
+    setPhone(true);
+    console.log(email, bill_id, amount, username, address, phone);
+
+    form.reset();
+    if (payBillRef.current) {
+      payBillRef.current.close();
+    }
+    console.log(newPayBill);
+  };
+
   return (
     <>
       <section className="w-11/12 md:w-10/12 mx-auto">
@@ -108,7 +177,7 @@ const BillsDetails = () => {
             <h3 className="font-bold text-base-200 text-lg font-[Inter] text-center">
               Fill the Form!
             </h3>
-            <form className="bg-base-100">
+            <form onSubmit={handlePayBillsForm} className="bg-base-100">
               <div>
                 <label className="text-base-200 text-[16px] md:text-[18px] font-medium font-[Inter]">
                   Email
@@ -152,7 +221,9 @@ const BillsDetails = () => {
                   Username
                 </label>
                 <br />
-                <input required
+                <input
+                  required
+                  name="name"
                   className="text-base-content text-[16px] md:text-[18px] border border-gary-300 px-2 py-1 w-full outline-primary rounded-[10px]"
                   type="text"
                   placeholder="Type your username"
@@ -163,7 +234,9 @@ const BillsDetails = () => {
                   Address
                 </label>
                 <br />
-                <input required
+                <input
+                  required
+                  name="address"
                   className="text-base-content text-[16px] md:text-[18px] border border-gary-300 px-2 py-1 w-full outline-primary rounded-[10px]"
                   type="text"
                   placeholder="Type your address"
@@ -174,10 +247,32 @@ const BillsDetails = () => {
                   Phone
                 </label>
                 <br />
-                <input required
+                <input
+                  required
+                  name="phone"
                   className="text-base-content text-[16px] md:text-[18px] border border-gary-300 px-2 py-1 w-full outline-primary rounded-[10px]"
                   type="tel"
                   placeholder="Type your phone number"
+                />
+                {phone ? (
+                  ""
+                ) : (
+                  <p className="text-red-500 ">
+                    Your phone number is invaild, Type a valid number
+                  </p>
+                )}
+              </div>
+              <div>
+                <label className="text-base-200 text-[16px] md:text-[18px] font-medium font-[Inter]">
+                  Date
+                </label>
+                <br />
+                <input
+                  name="date"
+                  className="text-base-content text-[16px] md:text-[18px] border border-gary-300 px-2 py-1 w-full outline-primary rounded-[10px]"
+                  type="date"
+                  defaultValue={todayDate}
+                  readOnly
                 />
               </div>
               <div className="mt-5 text-center">
