@@ -408,7 +408,7 @@ const MyPayBills = () => {
       <section className="w-11/12 md:w-10/12 mx-auto mt-10 opacity-0">
         <div
           ref={receiptRef}
-          className="receipt_box w-[595px] h-[842px] p-10 bg-[#FFF5CC]"
+          className="receipt_box w-[595px] h-[842px] p-10 bg-[#FFF5CC] pointer-events-none fixed"
         >
           <div className="receipt_header mb-5">
             <h2 className="text-[18px] md:text-[30px] font-bold font-[Inter] text-[#3b82f6] text-center">

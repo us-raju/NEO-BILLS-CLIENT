@@ -81,12 +81,12 @@ const Hero = () => {
 
                   <Link
                     data-tooltip-id="my-tooltip"
-                    data-tooltip-content="Click to download your last pay bills"
+                    data-tooltip-content="Click to download your pay bills"
                     data-tooltip-place="top"
                     className="border border-primary bg-primary hover:text-primary  mx-3 px-5 py-1.5 md:text-[18px] text-[14px] text-white hover:bg-white font-[Inter] font-medium duration-100 rounded-2xl cursor-pointer "
-                    to={"/"}
+                    to={"/paybills"}
                   >
-                    Download Last Bill
+                    Download Bill
                   </Link>
                 </div>
               </div>
