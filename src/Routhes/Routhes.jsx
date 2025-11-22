@@ -7,6 +7,7 @@ import Register from "../Pages/Register";
 import Login from "../Pages/Login";
 import MyPayBills from "../Pages/MyPayBills";
 import PrivateRoute from "../Provider/PrivateRoute";
+import Page404 from "../Pages/Page404";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       },
       { path: "/register", element: <Register></Register> },
       { path: "/login", element: <Login></Login> },
+      {
+        path: "/*",
+        element: <Page404></Page404>,
+      },
     ],
   },
 ]);
