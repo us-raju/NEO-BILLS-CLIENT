@@ -1,6 +1,5 @@
 import React from "react";
-// import Swiper from "swiper";
-
+import { Tooltip } from "react-tooltip";
 import {
   A11y,
   Autoplay,
@@ -14,8 +13,6 @@ import hero2 from "/hero-2.jpg";
 import hero3 from "/hero-3.jpg";
 import { Link } from "react-router";
 const Hero = () => {
-
-
   return (
     <>
       <div className="w-full min-w-full">
@@ -50,7 +47,11 @@ const Hero = () => {
                 </p>
 
                 <div>
+                  <Tooltip id="my-tooltip"></Tooltip>
                   <Link
+                    data-tooltip-id="my-tooltip"
+                    data-tooltip-content="Click to View all electricity bills"
+                    data-tooltip-place="top"
                     className="border border-primary bg-primary hover:text-primary  mx-3 px-5 py-1.5 md:text-[18px] text-[14px] text-white hover:bg-white font-[Inter] font-medium duration-100 rounded-2xl cursor-pointer "
                     to={"/bills?catagory=Electricity"}
                   >
@@ -76,7 +77,12 @@ const Hero = () => {
                 </p>
 
                 <div>
+                  <Tooltip id="my-tooltip"></Tooltip>
+
                   <Link
+                    data-tooltip-id="my-tooltip"
+                    data-tooltip-content="Click to download your last pay bills"
+                    data-tooltip-place="top"
                     className="border border-primary bg-primary hover:text-primary  mx-3 px-5 py-1.5 md:text-[18px] text-[14px] text-white hover:bg-white font-[Inter] font-medium duration-100 rounded-2xl cursor-pointer "
                     to={"/"}
                   >
@@ -101,7 +107,12 @@ const Hero = () => {
                 </p>
 
                 <div>
+                  <Tooltip id="my-tooltip"></Tooltip>
+
                   <Link
+                    data-tooltip-id="my-tooltip"
+                    data-tooltip-content="Click to View all bills"
+                    data-tooltip-place="top"
                     className="border border-primary bg-primary hover:text-primary  mx-3 px-5 py-1.5 md:text-[18px] text-[14px] text-white hover:bg-white font-[Inter] font-medium duration-100 rounded-2xl cursor-pointer "
                     to="/bills"
                   >

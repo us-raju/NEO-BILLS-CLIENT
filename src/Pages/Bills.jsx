@@ -2,15 +2,16 @@ import React, { useEffect, useState } from "react";
 import useAxios from "../hook/useAxios";
 import Loading from "../Loading/Loading";
 import { Link, useLocation } from "react-router";
+import { Tooltip } from "react-tooltip";
 
 const Bills = () => {
   const [bills, setBills] = useState([]);
   const [search, setSearch] = useState("");
   const location = useLocation();
-  const params = new URLSearchParams(location.search)
-  const selectedCatagory = params.get("catagory")
-  const [category, setCategory] = useState(selectedCatagory||"");
-  console.log(selectedCatagory)
+  const params = new URLSearchParams(location.search);
+  const selectedCatagory = params.get("catagory");
+  const [category, setCategory] = useState(selectedCatagory || "");
+  console.log(selectedCatagory);
   const axiosInstance = useAxios();
   useEffect(() => {
     axiosInstance.get("/bills").then((data) => {
@@ -38,11 +39,10 @@ const Bills = () => {
     return matchesSearch && matchesCategory;
   });
 
-
   return (
     <>
       <section className="w-11/12 md:w-10/12 mx-auto">
-      <title>Neobill-Bill</title>
+        <title>Neobill-Bill</title>
         <div className="lg:mt-10">
           <h2 className="text-base-200 text-2xl font-[Inter] font-bold mb-5">
             Bills
@@ -82,7 +82,9 @@ const Bills = () => {
                   onChange={(e) => setCategory(e.target.value)}
                   className="select border border-gray-300"
                 >
-                  <option disabled={false} value="">Category</option>
+                  <option disabled={false} value="">
+                    Category
+                  </option>
                   <option value="Electricity">Electricity</option>
                   <option value="Water">Water</option>
                   <option value="Gas">Gas</option>
@@ -132,7 +134,15 @@ const Bills = () => {
                 </div>
                 <div>
                   <div>
-                    <Link to={`/bills-details/${data._id}`} className="w-full inline-block  py-2 rounded-2xl text-center text-[18px] font-semibold font-[Inter] text-primary bg-transparent border border-primary hover:bg-primary hover:text-white duration-200">
+                    <Tooltip id="my-tooltip"></Tooltip>
+
+                    <Link
+                      data-tooltip-id="my-tooltip"
+                      data-tooltip-content={`Click to view ${data.title} details`}
+                      data-tooltip-place="top"
+                      to={`/bills-details/${data._id}`}
+                      className="w-full inline-block  py-2 rounded-2xl text-center text-[18px] font-semibold font-[Inter] text-primary bg-transparent border border-primary hover:bg-primary hover:text-white duration-200"
+                    >
                       See Details
                     </Link>
                   </div>

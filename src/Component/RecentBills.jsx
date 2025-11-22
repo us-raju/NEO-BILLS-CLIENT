@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import useAxios from "../hook/useAxios";
 import { Link } from "react-router";
 import Loading from "../Loading/Loading";
+import { Tooltip } from "react-tooltip";
 
 const RecentBills = () => {
   const [recentData, setRecentData] = useState("");
@@ -50,7 +51,15 @@ const RecentBills = () => {
                 </div>
               </div>
               <div>
-                <Link to={`/bills-details/${data._id}`} className="w-full inline-block  py-2 rounded-2xl text-center text-[18px] font-semibold font-[Inter] text-primary bg-transparent border border-primary hover:bg-primary hover:text-white duration-200">
+                <Tooltip id="my-tooltip"></Tooltip>
+
+                <Link
+                  data-tooltip-id="my-tooltip"
+                  data-tooltip-content={`Click to view ${data.title} details`}
+                  data-tooltip-place="top"
+                  to={`/bills-details/${data._id}`}
+                  className="w-full inline-block  py-2 rounded-2xl text-center text-[18px] font-semibold font-[Inter] text-primary bg-transparent border border-primary hover:bg-primary hover:text-white duration-200"
+                >
                   See Details
                 </Link>
               </div>

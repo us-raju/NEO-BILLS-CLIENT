@@ -5,6 +5,7 @@ import { RiBillLine } from "react-icons/ri";
 import { Link } from "react-router";
 import useAuth from "../hook/useAuth";
 import Swal from "sweetalert2";
+import { Tooltip } from "react-tooltip";
 
 const HowItWork = () => {
   const { user } = useAuth();
@@ -16,6 +17,9 @@ const HowItWork = () => {
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 ">
           <Link
+            data-tooltip-id="my-tooltip"
+            data-tooltip-content="Click to create an account"
+            data-tooltip-place="top"
             to={user ? "#" : "/register"}
             onClick={(e) => {
               if (user) {
@@ -53,6 +57,9 @@ const HowItWork = () => {
             </div>
           </Link>
           <Link
+            data-tooltip-id="my-tooltip"
+            data-tooltip-content="Click to View all bills"
+            data-tooltip-place="top"
             to="/bills"
             className="hover:border hover:border-primary rounded-2xl duration-200 border border-gray-300"
           >
@@ -79,6 +86,9 @@ const HowItWork = () => {
             </div>
           </Link>
           <Link
+            data-tooltip-id="my-tooltip"
+            data-tooltip-content="Click to then select current month bill then pay bill"
+            data-tooltip-place="top"
             to="/bills"
             className="hover:border hover:border-primary rounded-2xl duration-200 border border-gray-300"
           >

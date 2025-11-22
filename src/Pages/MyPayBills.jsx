@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import useAuth from "../hook/useAuth";
 import useAxios from "../hook/useAxios";
 import Swal from "sweetalert2";
+import { motion } from "motion/react";
+import { Tooltip } from "react-tooltip";
 
 const MyPayBills = () => {
   const { user } = useAuth();
@@ -12,6 +14,7 @@ const MyPayBills = () => {
   const [todayDate, setTodayDate] = useState("");
   const payBillRef = useRef(null);
   const [selected, setSelected] = useState("");
+  const [popup, setPopup] = useState(false);
 
   useEffect(() => {
     if (user.email) {
@@ -134,21 +137,39 @@ const MyPayBills = () => {
         });
       });
   };
+  // download report button functionlity here
+  const handleDownloadRoport = () => {
+    setPopup(true);
+  };
+
+  // popup close functionlity here
+  const closePopup = () => {
+    setPopup(false);
+  };
 
   return (
     <>
-      <section className="w-11/12 md:w-10/12 mx-auto mt-10">
-      <title>Neobill-Pay Bills</title>
-        <div className="flex justify-between items-center">
-          <h2 className="text-base-200 text-[18px] md:text-2xl font-[Inter] font-bold mb-5">
-            My Pay Bills
-          </h2>
-          <button
-            type="button"
-            className="border border-primary bg-primary text-white mx-5 px-3 md:px-5 py-1.5 text-[18px]  font-[Inter] font-medium  rounded-2xl cursor-pointer hover:bg-transparent hover:text-primary"
-          >
-            Download Report
-          </button>
+      <section className="w-11/12 md:w-10/12 mx-auto mt-10 relative">
+        <title>Neobill-Pay Bills</title>
+        <div className="flex justify-between">
+          <div>
+            <h2 className="text-base-200 text-[18px] md:text-2xl font-[Inter] font-bold mb-5">
+              My Pay Bills
+            </h2>
+          </div>
+          <div>
+            <Tooltip className="z-30" id="my-tooltip"></Tooltip>
+            <button
+              data-tooltip-id="my-tooltip"
+              data-tooltip-content={`Click to download your pay bills recipt`}
+              data-tooltip-place="top"
+              onClick={handleDownloadRoport}
+              type="button"
+              className="border border-primary bg-primary text-white mx-5 px-3 md:px-5 py-1.5 text-[16px] md:text-[18px]  font-[Inter] font-medium  rounded-2xl cursor-pointer hover:bg-transparent hover:text-primary"
+            >
+              Download Report
+            </button>
+          </div>
         </div>
 
         <div className="mt-5">
@@ -183,6 +204,9 @@ const MyPayBills = () => {
                     <td>{payBill.date}</td>
                     <td>
                       <button
+                        data-tooltip-id="my-tooltip"
+                        data-tooltip-content={`Click to update your bills`}
+                        data-tooltip-place="top"
                         onClick={() => handleUpdate(payBill)}
                         className="mr-2 bg-primary text-white px-4 py-1.5 text-[14px]  font-[Inter] font-medium  rounded-[10px] cursor-pointer"
                       >
@@ -191,6 +215,9 @@ const MyPayBills = () => {
                     </td>
                     <td>
                       <button
+                        data-tooltip-id="my-tooltip"
+                        data-tooltip-content={`Click to delete your bills`}
+                        data-tooltip-place="top"
                         onClick={() => handleDelete(payBill)}
                         className="mr-2 bg-red-500 text-white  px-4 py-1.5 text-[14px]  font-[Inter] font-medium  rounded-[10px] cursor-pointer"
                       >
@@ -296,6 +323,57 @@ const MyPayBills = () => {
             </div>
           </div>
         </dialog>
+
+        {/* bill download table */}
+        {popup ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-20"
+          >
+            <div className="bg-white w-[300px] md:w-[600px] px-5 py-5 rounded-2xl absolute left-[50%] top-[50%] -translate-x-1/2 -translate-y-1/2">
+              <table className="text-base-200 w-full font-[Inter] border border-gray-300 border-collapse rounded-[10px]">
+                <thead className=" text-[10px] md:text-[16px] border border-gray-300 rounded-[10px] font-medium md:font-bold ">
+                  <tr className="flex justify-evenly items-center py-1 md:py-2 ">
+                    <th>Username</th>
+                    <th>Bill Date</th>
+                    <th>Bill Amount</th>
+                    <th>
+                      <button>Download</button>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="border text-[10px] md:text-[16px] border-gray-300 rounded-[10px] font-medium md:font-bold ">
+                  {payBills.map((bill) => (
+                    <tr
+                      key={bill._id}
+                      className="flex justify-evenly items-center py-1 md:py-2 border-b border-gray-300"
+                    >
+                      <th>{bill.username}</th>
+                      <th>{bill.date}</th>
+                      <th>{bill.amount}</th>
+                      <th className="bg-transparent border border-primary text-primary text-[10px] md:text-[18px] font-medium md:font-bold font-[Inter] py-1 px-1 md:px-3 rounded-[10px] hover:bg-primary hover:text-white duration-300 cursor-pointer">
+                        <button>Download</button>
+                      </th>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <div className="w-full flex justify-end  bg-transparent text-primary text-[10px] md:text-[18px] font-medium md:font-bold font-[Inter] mt-5">
+                <button
+                  onClick={closePopup}
+                  className="py-1 px-1 md:px-3 rounded-[10px] border border-primary hover:bg-primary hover:text-white duration-300 cursor-pointer"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        ) : (
+          ""
+        )}
       </section>
     </>
   );
