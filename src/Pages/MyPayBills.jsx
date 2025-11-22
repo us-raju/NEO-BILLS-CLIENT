@@ -22,11 +22,11 @@ const MyPayBills = () => {
   }, [axiosInstance, user?.email]);
 
   useEffect(() => {
-    if ((payBills, length > 0)) {
-      const amount = payBills.map((bill) => {
-        return bill.amount;
-      });
-      const total = amount.reduce((acc, currentValue) => acc + currentValue, 0);
+    if (payBills.length > 0) {
+      const total = payBills.reduce((acc, bill) => {
+        return acc + Number(bill.amount);
+      }, 0);
+
       setTotalAmount(total);
     } else {
       setTotalAmount(0);
@@ -52,10 +52,9 @@ const MyPayBills = () => {
   const handlePayBillsForm = (e) => {
     e.preventDefault();
     const form = e.target;
-    const email = user.email;
-    const bill_id = payBills._id;
-    const amount = selected.amount;
-    const username = form.name.value;
+
+    const amount = form.amount.value;
+
     const address = form.address.value;
     const phone = form.phone.value;
     const date = form.date.value;
@@ -78,6 +77,11 @@ const MyPayBills = () => {
           icon: "success",
           text: "Bill Update Successfull!",
         });
+        setPayBills((prev) => {
+          return prev.map((bill) =>
+            bill._id === selected._id ? { ...bill, ...upDateBill } : bill
+          );
+        });
       })
       .catch((err) => {
         const error = err.message;
@@ -98,8 +102,38 @@ const MyPayBills = () => {
     setSelected(payBill);
     payBillRef.current.showModal();
   };
-  const handleDelete = () => {};
-  console.log(selected);
+  const handleDelete = (payBill) => {
+    console.log(payBill);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    })
+      .then((result) => {
+        if (result.isConfirmed) {
+          axiosInstance.delete(`/pay-bills/${payBill._id}`).then((res) => {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your bill has been deleted.",
+              icon: "success",
+            });
+          });
+        }
+        setPayBills((prev) => prev.filter((item) => item._id !== payBill._id));
+      })
+      .catch((err) => {
+        const error = err.message;
+        Swal.fire({
+          icon: "error",
+          text: error,
+        });
+      });
+  };
+
   return (
     <>
       <section className="w-11/12 md:w-10/12 mx-auto mt-10">
@@ -126,7 +160,7 @@ const MyPayBills = () => {
                   <th>Address</th>
                   <th>Phone</th>
                   <th>Date</th>
-                  <th>Actions</th>
+                  <th className="col-span-2">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -150,8 +184,10 @@ const MyPayBills = () => {
                       >
                         Update
                       </button>{" "}
+                    </td>
+                    <td>
                       <button
-                        onClick={handleDelete}
+                        onClick={() => handleDelete(payBill)}
                         className="mr-2 bg-red-500 text-white  px-4 py-1.5 text-[14px]  font-[Inter] font-medium  rounded-[10px] cursor-pointer"
                       >
                         Delete
@@ -176,7 +212,7 @@ const MyPayBills = () => {
         >
           <div className="modal-box">
             <h3 className="font-bold text-base-200 text-lg font-[Inter] text-center">
-              Fill the Form!
+              Update your data
             </h3>
             <form onSubmit={handlePayBillsForm} className="bg-base-100">
               <div>
