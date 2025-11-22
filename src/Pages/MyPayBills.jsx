@@ -103,7 +103,6 @@ const MyPayBills = () => {
     payBillRef.current.showModal();
   };
   const handleDelete = (payBill) => {
-    console.log(payBill);
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -122,8 +121,10 @@ const MyPayBills = () => {
               icon: "success",
             });
           });
+          setPayBills((prev) =>
+            prev.filter((item) => item._id !== payBill._id)
+          );
         }
-        setPayBills((prev) => prev.filter((item) => item._id !== payBill._id));
       })
       .catch((err) => {
         const error = err.message;
@@ -138,12 +139,12 @@ const MyPayBills = () => {
     <>
       <section className="w-11/12 md:w-10/12 mx-auto mt-10">
         <div className="flex justify-between items-center">
-          <h2 className="text-base-200 text-2xl font-[Inter] font-bold mb-5">
+          <h2 className="text-base-200 text-[18px] md:text-2xl font-[Inter] font-bold mb-5">
             My Pay Bills
           </h2>
           <button
             type="button"
-            className="border border-primary bg-primary text-white  mx-3 px-5 py-1.5 text-[18px]  font-[Inter] font-medium  rounded-2xl cursor-pointer hover:bg-transparent hover:text-primary"
+            className="border border-primary bg-primary text-white mx-5 px-3 md:px-5 py-1.5 text-[18px]  font-[Inter] font-medium  rounded-2xl cursor-pointer hover:bg-transparent hover:text-primary"
           >
             Download Report
           </button>
@@ -160,14 +161,16 @@ const MyPayBills = () => {
                   <th>Address</th>
                   <th>Phone</th>
                   <th>Date</th>
-                  <th className="col-span-2">Actions</th>
+                  <th colSpan={2} className="text-center">
+                    Actions
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {payBills.map((payBill) => (
                   <tr
                     key={payBill._id}
-                    className="border border-gray-300 text-base-content font-[Railway] text-[16px]"
+                    className="border border-gray-300 text-base-content font-[Railway] text-[12px] md:text-[16px]"
                   >
                     <th className="text-base-200 font-[Inter]">
                       {payBill.username}
