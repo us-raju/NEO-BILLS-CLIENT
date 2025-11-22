@@ -68,6 +68,7 @@ const Login = () => {
 
   return (
     <>
+    <title>Neobill-Login</title>
       <section className="w-11/12 md:w-10/12 mx-auto md:flex md:flex-col md:justify-center md:items-center min-h-screen">
         <div className="flex flex-col-reverse md:flex-row">
           <div className="md:w-[50%] ">

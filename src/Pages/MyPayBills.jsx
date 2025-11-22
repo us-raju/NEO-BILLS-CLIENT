@@ -138,6 +138,7 @@ const MyPayBills = () => {
   return (
     <>
       <section className="w-11/12 md:w-10/12 mx-auto mt-10">
+      <title>Neobill-Pay Bills</title>
         <div className="flex justify-between items-center">
           <h2 className="text-base-200 text-[18px] md:text-2xl font-[Inter] font-bold mb-5">
             My Pay Bills

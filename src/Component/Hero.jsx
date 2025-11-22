@@ -14,6 +14,8 @@ import hero2 from "/hero-2.jpg";
 import hero3 from "/hero-3.jpg";
 import { Link } from "react-router";
 const Hero = () => {
+
+
   return (
     <>
       <div className="w-full min-w-full">
@@ -46,18 +48,11 @@ const Hero = () => {
                   Track usage, calculate monthly cost, and pay your electricity
                   bills securely — all in one place.
                 </p>
-                <div className="mb-5">
-                  <Link
-                    className="border border-primary bg-primary hover:text-primary  mx-3 px-5 py-1.5 md:text-[18px] text-[14px] text-white hover:bg-white font-[Inter] font-medium duration-100 rounded-2xl cursor-pointer "
-                    to={"/"}
-                  >
-                    Add Bill
-                  </Link>
-                </div>
+
                 <div>
                   <Link
                     className="border border-primary bg-primary hover:text-primary  mx-3 px-5 py-1.5 md:text-[18px] text-[14px] text-white hover:bg-white font-[Inter] font-medium duration-100 rounded-2xl cursor-pointer "
-                    to={"/"}
+                    to={"/bills?catagory=Electricity"}
                   >
                     View Electricity Bills
                   </Link>
@@ -79,14 +74,7 @@ const Hero = () => {
                   Get detailed breakdowns of electricity, water, and gas
                   consumption with real bills and charts.
                 </p>
-                <div className="mb-5">
-                  <Link
-                    className="border border-primary bg-primary hover:text-primary  mx-3 px-5 py-1.5 md:text-[18px] text-[14px] text-white hover:bg-white font-[Inter] font-medium duration-100 rounded-2xl cursor-pointer "
-                    to={"/"}
-                  >
-                    View Reports
-                  </Link>
-                </div>
+
                 <div>
                   <Link
                     className="border border-primary bg-primary hover:text-primary  mx-3 px-5 py-1.5 md:text-[18px] text-[14px] text-white hover:bg-white font-[Inter] font-medium duration-100 rounded-2xl cursor-pointer "
@@ -111,14 +99,7 @@ const Hero = () => {
                   Fast, secure, and hassle-free bill payments with multiple
                   payment methods.
                 </p>
-                <div className="mb-5">
-                  <Link
-                    className="border border-primary bg-primary hover:text-primary  mx-3 px-5 py-1.5 md:text-[18px] text-[14px] text-white hover:bg-white font-[Inter] font-medium duration-100 rounded-2xl cursor-pointer "
-                    to={"/"}
-                  >
-                    Pay Now
-                  </Link>
-                </div>
+
                 <div>
                   <Link
                     className="border border-primary bg-primary hover:text-primary  mx-3 px-5 py-1.5 md:text-[18px] text-[14px] text-white hover:bg-white font-[Inter] font-medium duration-100 rounded-2xl cursor-pointer "

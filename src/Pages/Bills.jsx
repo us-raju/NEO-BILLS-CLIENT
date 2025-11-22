@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import useAxios from "../hook/useAxios";
 import Loading from "../Loading/Loading";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 
 const Bills = () => {
   const [bills, setBills] = useState([]);
   const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("");
+  const location = useLocation();
+  const params = new URLSearchParams(location.search)
+  const selectedCatagory = params.get("catagory")
+  const [category, setCategory] = useState(selectedCatagory||"");
+  console.log(selectedCatagory)
   const axiosInstance = useAxios();
   useEffect(() => {
     axiosInstance.get("/bills").then((data) => {
@@ -34,9 +38,11 @@ const Bills = () => {
     return matchesSearch && matchesCategory;
   });
 
+
   return (
     <>
       <section className="w-11/12 md:w-10/12 mx-auto">
+      <title>Neobill-Bill</title>
         <div className="lg:mt-10">
           <h2 className="text-base-200 text-2xl font-[Inter] font-bold mb-5">
             Bills
@@ -72,7 +78,7 @@ const Bills = () => {
             <div className="w-30% text-base-200 font-bold">
               <fieldset className="fieldset">
                 <select
-                  defaultValue="Pick a browser"
+                  value={category}
                   onChange={(e) => setCategory(e.target.value)}
                   className="select border border-gray-300"
                 >

@@ -105,6 +105,7 @@ const BillsDetails = () => {
   return (
     <>
       <section className="w-11/12 md:w-10/12 mx-auto">
+      <title>Neobill-Bill Details</title>
         <div>
           <div className="lg:mt-10">
             <h2 className="text-base-200 text-2xl font-[Inter] font-bold mb-5">

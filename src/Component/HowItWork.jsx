@@ -79,7 +79,7 @@ const HowItWork = () => {
             </div>
           </Link>
           <Link
-            to="bills-details"
+            to="/bills"
             className="hover:border hover:border-primary rounded-2xl duration-200 border border-gray-300"
           >
             <div
