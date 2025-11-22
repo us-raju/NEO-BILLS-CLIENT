@@ -4,6 +4,9 @@ import useAxios from "../hook/useAxios";
 import Swal from "sweetalert2";
 import { motion } from "motion/react";
 import { Tooltip } from "react-tooltip";
+import { IoCheckmarkCircleOutline } from "react-icons/io5";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 const MyPayBills = () => {
   const { user } = useAuth();
@@ -15,6 +18,8 @@ const MyPayBills = () => {
   const payBillRef = useRef(null);
   const [selected, setSelected] = useState("");
   const [popup, setPopup] = useState(false);
+  const [selectedBill, setSelectedBill] = useState("");
+  const receiptRef = useRef();
 
   useEffect(() => {
     if (user.email) {
@@ -140,6 +145,28 @@ const MyPayBills = () => {
   // download report button functionlity here
   const handleDownloadRoport = () => {
     setPopup(true);
+  };
+
+  // pdf download functionlity here
+  const handleDownload =  (bill) => {
+    setSelectedBill(bill);
+
+    setTimeout(async () => {
+      const receiptReferance = receiptRef.current;
+      if(!receiptReferance) return
+      const canvas = await html2canvas(receiptReferance, {
+        scale: 2,
+        useCORS: true,
+      });
+      const imageData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "mm", "a4");
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHight = pdf.internal.pageSize.getHeight();
+      const imgWidth = pdfWidth;
+      const imgHight = (canvas.height * imgWidth) / canvas.width;
+      pdf.addImage(imageData, "PNG", 0, 0, imgWidth, imgHight);
+      pdf.save("receipt.pdf");
+    }, 100);
   };
 
   // popup close functionlity here
@@ -355,7 +382,9 @@ const MyPayBills = () => {
                       <th>{bill.date}</th>
                       <th>{bill.amount}</th>
                       <th className="bg-transparent border border-primary text-primary text-[10px] md:text-[18px] font-medium md:font-bold font-[Inter] py-1 px-1 md:px-3 rounded-[10px] hover:bg-primary hover:text-white duration-300 cursor-pointer">
-                        <button>Download</button>
+                        <button className="cursor-pointer" onClick={() => handleDownload(bill)}>
+                          Download
+                        </button>
                       </th>
                     </tr>
                   ))}
@@ -374,6 +403,81 @@ const MyPayBills = () => {
         ) : (
           ""
         )}
+      </section>
+
+      <section className="w-11/12 md:w-10/12 mx-auto mt-10 opacity-0">
+        <div
+          ref={receiptRef}
+          className="receipt_box w-[595px] h-[842px] p-10 bg-[#FFF5CC]"
+        >
+          <div className="receipt_header mb-5">
+            <h2 className="text-[18px] md:text-[30px] font-bold font-[Inter] text-[#3b82f6] text-center">
+              NEO BILLS
+            </h2>
+            <h3 className="text-[16px] md:text-[20px] font-semibold font-[Inter] text-[#1e293b] text-center">
+              Payment Receipt
+            </h3>
+          </div>
+          <div className="userInfo mb-5">
+            <h3 className="text-[16px] md:text-[20px] font-semibold font-[Inter] text-[#1e293b] mb-2">
+              User Information:
+            </h3>
+            <div className="flex items-center">
+              <h4 className="text-14px md:text-[18px] text-[#475569] font-[Railway] mr-1">
+                Username:
+              </h4>
+              <p>{selectedBill.username}</p>
+            </div>
+            <div className="flex items-center">
+              <h4 className="text-14px md:text-[18px] text-[#475569] font-[Railway] mr-1">
+                Email:
+              </h4>
+              <p>{selectedBill.email}</p>
+            </div>
+          </div>
+          <div className="paymentDetails mb-5">
+            <h3 className="text-[16px] md:text-[20px] font-semibold font-[Inter] text-[#1e293b] mb-2">
+              Payment Details:
+            </h3>
+            <div className="flex items-center ">
+              <h4 className="text-14px md:text-[18px] text-[#475569] font-[Railway] mr-1">
+                Bill ID:
+              </h4>
+              <p>{selectedBill.bill_id}</p>
+            </div>
+            <div className="flex items-center">
+              <h4 className="text-14px md:text-[18px] text-[#475569] font-[Railway] mr-1">
+                Paid Date:
+              </h4>
+              <p>{selectedBill.date}</p>
+            </div>
+            <div className="flex items-center">
+              <h4 className="text-14px md:text-[18px] text-[#475569] font-[Railway] mr-1">
+                Amount:
+              </h4>
+              <p>{selectedBill.amount}</p>
+            </div>
+            <div className="flex items-center">
+              <h4 className="text-14px md:text-[18px] text-[#475569]t font-[Railway] mr-1">
+                Total Amount:
+              </h4>
+              <p>{selectedBill.amount}</p>
+            </div>
+          </div>
+          <div className="receipt_footer">
+            <div className="flex items-baseline">
+              <h3 className="text-[16px] md:text-[20px] font-semibold font-[Inter] text-[#1e293b] mb-2 mr-1">
+                Payment Status:
+              </h3>
+              <p className="flex items-center text-[#008000] font-bold">
+                PAID <IoCheckmarkCircleOutline size={20} className="mt-1"/>
+              </p>
+            </div>
+            <h4 className="text-14px md:text-[18px] text-[#008000] font-[Railway] font-bold">
+              Thank you for your payment!
+            </h4>
+          </div>
+        </div>
       </section>
     </>
   );
