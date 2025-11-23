@@ -38,7 +38,7 @@ const Hero = () => {
               style={{ backgroundImage: `url(${hero1})` }}
             >
               <div className="md:pt-10 md:pl-14 pt-5 pl-7">
-                <h2 className="text-base-200 font-[Inter] font-bold md:text-2xl text-[18px]">
+                <h2 className="text-[#1e293b] font-[Inter] font-bold md:text-2xl text-[18px]">
                   Manage Your Electricity Bills Easil
                 </h2>
                 <p className="text-base-content font-medium max-w-96 my-3 text-[14px] md:text-[16px]">
@@ -67,7 +67,7 @@ const Hero = () => {
               style={{ backgroundImage: `url(${hero2})` }}
             >
               <div className="md:pt-10 md:pl-14 pt-5 pl-7">
-                <h2 className="text-base-200 font-[Inter] font-bold md:text-2xl text-[18px]">
+                <h2 className="text-[#1e293b] font-[Inter] font-bold md:text-2xl text-[18px]">
                   Your Monthly Utility Reports <br />
                   At a Glance
                 </h2>
@@ -98,7 +98,7 @@ const Hero = () => {
               style={{ backgroundImage: `url(${hero3})` }}
             >
               <div className="md:pt-10 md:pl-14 pt-5 pl-7">
-                <h2 className="text-base-200 font-[Inter] font-bold md:text-2xl text-[18px]">
+                <h2 className="text-[#1e293b] font-[Inter] font-bold md:text-2xl text-[18px]">
                   Pay Your Bills Instantly & Securely
                 </h2>
                 <p className="text-base-content font-medium max-w-96 my-3 text-[14px] md:text-[16px]">

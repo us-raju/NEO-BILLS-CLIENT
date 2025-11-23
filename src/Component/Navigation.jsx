@@ -1,26 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { Link, NavLink } from "react-router";
 import useAuth from "../hook/useAuth";
 import Loading from "../Loading/Loading";
 import Swal from "sweetalert2";
+import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
 
 const Navigation = () => {
   const { user, loading, LogOut } = useAuth();
+  const [theme, setTheme] = useState("");
+
+  // get them form loacl stroge Light and Dark mode
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      setTheme(savedTheme);
+      document.documentElement.setAttribute("data-theme", savedTheme);
+    } else {
+      document.documentElement.setAttribute("data-theme", "mytheme-light");
+    }
+  }, []);
+
+  //set them to local stroge Light and Dark mode
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
+
+  // loading
   if (loading) {
     return <Loading></Loading>;
   }
-
-  // Light and Dark mode
-
-  // const toggleTheme = () => {
-  //   const html = document.documentElement;
-  //   const currentTheme = html.getAttribute("data-theme");
-  //   html.setAttribute(
-  //     "data-theme",
-  //     currentTheme === "mytheme-light" ? "mytheme-dark" : "mytheme-light"
-  //   );
-  // };
   const handleLogOut = () => {
     LogOut()
       .then(() => {
@@ -130,6 +140,22 @@ const Navigation = () => {
     </>
   );
 
+  const modeChanger = (
+    <>
+      <label className="toggle text-base-200">
+        <input
+          checked={theme === "mytheme-light"}
+          onChange={(e) =>
+            setTheme(e.target.checked ? "mytheme-light" : "mytheme-dark")
+          }
+          type="checkbox"
+        />
+        <MdOutlineDarkMode />
+        <MdOutlineLightMode />
+      </label>
+    </>
+  );
+
   return (
     <>
       <div className="navbar shadow-sm bg-base-300">
@@ -160,6 +186,7 @@ const Navigation = () => {
               {user && (
                 <li className="flex items-center gap-3">{avtarLogout}</li>
               )}
+              {<li className="flex items-center p-0!">{modeChanger}</li>}
             </ul>
           </div>
           <Link
@@ -175,6 +202,8 @@ const Navigation = () => {
         {user && (
           <div className="navbar-center hidden lg:flex">{avtarLogout}</div>
         )}
+
+        {<div className="navbar-center hidden lg:flex mr-5">{modeChanger}</div>}
       </div>
     </>
   );

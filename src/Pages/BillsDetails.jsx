@@ -4,6 +4,7 @@ import useAxios from "../hook/useAxios";
 import Loading from "../Loading/Loading";
 import useAuth from "../hook/useAuth";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../hook/useAxiosSecure";
 
 const BillsDetails = () => {
   const { id } = useParams();
@@ -14,6 +15,7 @@ const BillsDetails = () => {
   const payBillRef = useRef(null);
   const { user } = useAuth();
   const axiosInstance = useAxios();
+  const axiosSecure = useAxiosSecure();
   useEffect(() => {
     axiosInstance
       .get(`/bills-details/${id}`)
@@ -77,7 +79,7 @@ const BillsDetails = () => {
       date: date,
     };
 
-    axiosInstance
+    axiosSecure
       .post("/pay-bills", newPayBill)
       .then((res) => {
         Swal.fire({

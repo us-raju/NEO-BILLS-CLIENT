@@ -6,7 +6,7 @@ import { Link } from "react-router";
 const Footer = () => {
   return (
     <>
-      <footer className="footer footer-horizontal footer-center bg-primary text-primary-content p-10 h-[280px]">
+      <footer className="footer footer-horizontal footer-center bg-primary text-primary-content mt-10 p-10 h-[280px] w-11/12 md:w-10/12 mx-auto ">
         <aside>
           <div className="">
             <h2 className="text-[18px] lg:text-[24px] font-bold font-[Inter] mb-2">

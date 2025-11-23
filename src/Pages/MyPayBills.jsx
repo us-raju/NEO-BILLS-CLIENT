@@ -360,7 +360,7 @@ const MyPayBills = () => {
             transition={{ duration: 0.2 }}
             className="fixed inset-0 bg-black/40 backdrop-blur-sm z-20"
           >
-            <div className="bg-white w-[300px] md:w-[600px] px-5 py-5 rounded-2xl absolute left-[50%] top-[50%] -translate-x-1/2 -translate-y-1/2">
+            <div className="bg-base-100 w-[300px] md:w-[600px] px-5 py-5 rounded-2xl absolute left-[50%] top-[50%] -translate-x-1/2 -translate-y-1/2">
               <table className="text-base-200 w-full font-[Inter] border border-gray-300 border-collapse rounded-[10px]">
                 <thead className=" text-[10px] md:text-[16px] border border-gray-300 rounded-[10px] font-medium md:font-bold ">
                   <tr className="flex justify-evenly items-center py-1 md:py-2 ">
