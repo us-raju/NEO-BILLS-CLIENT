@@ -11,7 +11,6 @@ const Bills = () => {
   const params = new URLSearchParams(location.search);
   const selectedCatagory = params.get("catagory");
   const [category, setCategory] = useState(selectedCatagory || "");
-  console.log(selectedCatagory);
   const axiosInstance = useAxios();
   useEffect(() => {
     axiosInstance.get("/bills").then((data) => {

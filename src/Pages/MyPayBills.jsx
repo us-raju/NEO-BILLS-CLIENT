@@ -7,6 +7,7 @@ import { Tooltip } from "react-tooltip";
 import { IoCheckmarkCircleOutline } from "react-icons/io5";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import useAxiosSecure from "../hook/useAxiosSecure";
 
 const MyPayBills = () => {
   const { user } = useAuth();
@@ -20,14 +21,15 @@ const MyPayBills = () => {
   const [popup, setPopup] = useState(false);
   const [selectedBill, setSelectedBill] = useState("");
   const receiptRef = useRef();
+  const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
     if (user.email) {
-      axiosInstance.get(`/pay-bills?email=${user.email}`).then((data) => {
+      axiosSecure.get(`/pay-bills?email=${user.email}`).then((data) => {
         setPayBills(data.data);
       });
     }
-  }, [axiosInstance, user?.email]);
+  }, [axiosSecure, user?.email]);
 
   useEffect(() => {
     if (payBills.length > 0) {
@@ -148,12 +150,12 @@ const MyPayBills = () => {
   };
 
   // pdf download functionlity here
-  const handleDownload =  (bill) => {
+  const handleDownload = (bill) => {
     setSelectedBill(bill);
 
     setTimeout(async () => {
       const receiptReferance = receiptRef.current;
-      if(!receiptReferance) return
+      if (!receiptReferance) return;
       const canvas = await html2canvas(receiptReferance, {
         scale: 2,
         useCORS: true,
@@ -382,7 +384,10 @@ const MyPayBills = () => {
                       <th>{bill.date}</th>
                       <th>{bill.amount}</th>
                       <th className="bg-transparent border border-primary text-primary text-[10px] md:text-[18px] font-medium md:font-bold font-[Inter] py-1 px-1 md:px-3 rounded-[10px] hover:bg-primary hover:text-white duration-300 cursor-pointer">
-                        <button className="cursor-pointer" onClick={() => handleDownload(bill)}>
+                        <button
+                          className="cursor-pointer"
+                          onClick={() => handleDownload(bill)}
+                        >
                           Download
                         </button>
                       </th>
@@ -470,7 +475,7 @@ const MyPayBills = () => {
                 Payment Status:
               </h3>
               <p className="flex items-center text-[#008000] font-bold">
-                PAID <IoCheckmarkCircleOutline size={20} className="mt-1"/>
+                PAID <IoCheckmarkCircleOutline size={20} className="mt-1" />
               </p>
             </div>
             <h4 className="text-14px md:text-[18px] text-[#008000] font-[Railway] font-bold">

@@ -8,7 +8,9 @@ import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md";
 
 const Navigation = () => {
   const { user, loading, LogOut } = useAuth();
-  const [theme, setTheme] = useState("");
+  const [theme, setTheme] = useState(()=>{
+    return localStorage.getItem("theme") || "mytheme-light"
+  });
 
   // get them form loacl stroge Light and Dark mode
   useEffect(() => {
