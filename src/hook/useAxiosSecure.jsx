@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router";
 
 const instance = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://neobill-server.vercel.app/",
 });
 
 const useAxiosSecure = () => {
@@ -35,7 +35,7 @@ const useAxiosSecure = () => {
       instance.interceptors.request.eject(requestInterceptor);
       instance.interceptors.response.eject(responsiveInterceptor);
     };
-  }, [user,LogOut,navigate]);
+  }, [user, LogOut, navigate]);
 
   return instance;
 };
